@@ -1,53 +1,6 @@
-// Пример кода взят с https://learn.javascript.ru/task/random-int-min-max
-function getRandomNumber (min, max) {
-  if (min < 0 || min > max) {
-    throw new Error('Некорректный диапазон чисел.');
-  }
-  return Math.round(min - 0.5 + Math.random() * (max - min + 1));
-}
-
-getRandomNumber(1, 25);
-
-
-// Проверка на максимальное количество вводимых символов
-
-/*function checkoutTextLength (text, maxLength) {
-  return text.length <= maxLength;
-}
-
-checkoutTextLength();*/
-
-
-// Больше деталей
-
-/* Создание счетчика ID (Хотел хранить все идентификаторы в массиве, но реализовать через переменную оказалось проще.
-  Если додумаюсь, как в функцие CREATE_COMMENTS забирать данные непосредственно из массива,
-  то реализую позже)
-
-  const PHOTO_DESCRIPTION_ID = [];
-
-  for (let id = 0; id < USERS_PUBLISHED_PHOTO; id++) {
-    PHOTO_DESCRIPTION_ID[id] = id + 1;
-  }
-
-Создание массива с ID комментариев
-  const COMMENTS_ID = [];
-
-  for (let commentsId = 0; commentsId < USERS_PUBLISHED_PHOTO; commentsId++) {
-    COMMENTS_ID[commentsId] = commentsId + 1;
-  }
-
-Создание массива с адресом опубликованного изображения
-const PHOTOS_URL = [];
-
-for (let url = 0; url < USERS_PUBLISHED_PHOTO; url++) {
-  const URL_NUMBER = url + 1;
-  PHOTOS_URL[url] = `/photos/${  URL_NUMBER  }/.jpg`;
-} */
-
 const USERS_PUBLISHED_PHOTO = 25;
 
-const PHOTOS_DESCRIPTION = [
+const PHOTOS_DESCRIPTIONS = [
   'Всем продуктивного дня',
   'На отдыхе',
   'Если смогу, я сделаю это. Конец истории',
@@ -76,13 +29,8 @@ const PHOTOS_DESCRIPTION = [
 ];
 
 // Создание массива с адресом аватара
-const AVATAR_URL = [];
 
-for (let url = 0; url < USERS_PUBLISHED_PHOTO; url++) {
-  AVATAR_URL[url] = `img/avatar-${  getRandomNumber(1, 6)  }.svg`;
-}
-
-const MESSAGE = [
+const MESSAGES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -119,40 +67,51 @@ const USERS_NAMES = [
   'Ирина',
 ];
 
-const GET_RANDOM_ARRAY_ELEMENT = (elements) => elements[getRandomNumber(0, elements.length - 1)];
+// Пример кода взят с https://learn.javascript.ru/task/random-int-min-max
+function getRandomNumber (min, max) {
+  if (min < 0 || min > max) {
+    throw new Error('Некорректный диапазон чисел.');
+  }
+  return Math.round(min - 0.5 + Math.random() * (max - min + 1));
+}
+
+getRandomNumber();
+
+const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
 let commentId = 0;
 
-const GET_UNIQ_COMMENT_ID = () => {
+const getUniqCommentId = () => {
   commentId++;
   return commentId;
 };
 
 let photoId = 0;
 
-const GET_UNIQ_PHOTO_ID = () => {
+const getUniqPhotoId = () => {
   photoId++;
   return photoId;
 };
 
 
-const CREATE_COMMENTS = () => ({
-  id: GET_UNIQ_COMMENT_ID(),
-  avatar: GET_RANDOM_ARRAY_ELEMENT(AVATAR_URL),
-  message: GET_RANDOM_ARRAY_ELEMENT(MESSAGE),
-  name: GET_RANDOM_ARRAY_ELEMENT(USERS_NAMES),
+const createComments = () => ({
+  id: getUniqCommentId(),
+  avatar: `img/avatar-${  getRandomNumber(1, 6)  }.svg`,
+  message: getRandomArrayElement(MESSAGES),
+  name: getRandomArrayElement(USERS_NAMES),
 });
 
+const createPhotos = () => {
+  getUniqPhotoId();
+  return {
+    id: photoId,
+    url: `photos/${  photoId  }/.jpg`,
+    description: getRandomArrayElement(PHOTOS_DESCRIPTIONS),
+    likes: getRandomNumber(15, 200),
+    comments: Array.from({length: 1}, createComments),
+  };
+};
 
-const PUBLISHED_COMMENTS = Array.from({length: USERS_PUBLISHED_PHOTO}, CREATE_COMMENTS);
+const publishedPhotos = Array.from({length: USERS_PUBLISHED_PHOTO}, createPhotos);
 
-const CREATE_PHOTOS = () => ({
-  id: GET_UNIQ_PHOTO_ID(),
-  url: `photos/${  photoId  }/.jpg`,
-  description: GET_RANDOM_ARRAY_ELEMENT(PHOTOS_DESCRIPTION),
-  likes: getRandomNumber(15, 200),
-  comments: GET_RANDOM_ARRAY_ELEMENT(PUBLISHED_COMMENTS),
-});
-
-const PUBLISHED_PHOTOS = Array.from({length: USERS_PUBLISHED_PHOTO}, CREATE_PHOTOS);
-
+publishedPhotos();
