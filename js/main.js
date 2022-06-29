@@ -114,4 +114,4 @@ const createPhotos = () => {
 
 const publishedPhotos = Array.from({length: USERS_PUBLISHED_PHOTO}, createPhotos);
 
-publishedPhotos(); //Чтобы линтер не ругался
+
