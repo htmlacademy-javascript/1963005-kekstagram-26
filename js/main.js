@@ -93,7 +93,6 @@ const getUniqPhotoId = () => {
   return photoId;
 };
 
-
 const createComments = () => ({
   id: getUniqCommentId(),
   avatar: `img/avatar-${  getRandomNumber(1, 6)  }.svg`,
@@ -101,11 +100,12 @@ const createComments = () => ({
   name: getRandomArrayElement(USERS_NAMES),
 });
 
+//Немного поправил функцию
 const createPhotos = () => {
   getUniqPhotoId();
   return {
     id: photoId,
-    url: `photos/${  photoId  }/.jpg`,
+    url: `photos/${  photoId  }.jpg`,
     description: getRandomArrayElement(PHOTOS_DESCRIPTIONS),
     likes: getRandomNumber(15, 200),
     comments: Array.from({length: 1}, createComments),
@@ -114,4 +114,4 @@ const createPhotos = () => {
 
 const publishedPhotos = Array.from({length: USERS_PUBLISHED_PHOTO}, createPhotos);
 
-publishedPhotos();
+publishedPhotos(); //Чтобы линтер не ругался
