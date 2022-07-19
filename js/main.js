@@ -1,6 +1,5 @@
 import { publishedPhotos } from './data.js';
-import { renderingMiniatures } from './rendering-miniatures.js';
-import './create-full-photo.js';
+import { renderMiniatures } from './rendering-miniatures.js';
 
-renderingMiniatures(publishedPhotos);
+renderMiniatures(publishedPhotos);
 

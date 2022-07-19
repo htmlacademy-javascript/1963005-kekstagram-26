@@ -5,17 +5,21 @@ const usersPhotoTemplate = document.querySelector('#picture').content;
 
 const createListFragment = document.createDocumentFragment();
 
-function renderingMiniatures (loadedPhotos) {
-  loadedPhotos.forEach(({ url, likes, comments}) => {
+function renderMiniatures (loadedPhotos) {
+  loadedPhotos.forEach(({ url, likes, comments, description}) => {
     const newPhoto = usersPhotoTemplate.cloneNode(true);
-    newPhoto.querySelector('.picture__img').src = url;
-    newPhoto.querySelector('.picture__likes').textContent = likes;
-    newPhoto.querySelector('.picture__comments').textContent = comments.length;
+    const usersPhoto = newPhoto.querySelector('.picture__img');
+    const usersPhotoLikes = newPhoto.querySelector('.picture__likes');
+    const usersPhotoComments = newPhoto.querySelector('.picture__comments');
+    usersPhoto.src = url;
+    usersPhotoLikes.textContent = likes;
+    usersPhotoComments.textContent = comments.length;
 
-    newPhoto.addEventListener('click', () => createFullPhoto({ url, likes, comments }));
+    usersPhoto.addEventListener('click', () => createFullPhoto({ url, likes, comments, description }));
+
     createListFragment.appendChild(newPhoto);
   });
   usersPhotoList.appendChild(createListFragment);
 }
 
-export { renderingMiniatures };
+export { renderMiniatures };

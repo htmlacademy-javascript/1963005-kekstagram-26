@@ -1,4 +1,4 @@
-import { closePopupKeydown } from './util.js';
+import { isEscKeydown } from './util.js';
 
 const pageBody = document.body;
 const fullPhoto = document.querySelector('.big-picture');
@@ -41,7 +41,7 @@ const createFullPhoto = ({url, likes, description, comments}) => {
   photoDescription.textContent = description;
   photoCommentsCount.textContent = comments.length;
 
-  document.addEventListener('keydown', closeOnEscape);
+  document.addEventListener('keydown', onFullPhotoEscKeydown);
 
   addComments(comments);
 
@@ -58,11 +58,11 @@ const closeFullPhoto = () => {
 
 closeFullPhotoButton.addEventListener('click', () => {
   closeFullPhoto();
-  document.removeEventListener('keydown', closeOnEscape);
+  document.removeEventListener('keydown', onFullPhotoEscKeydown);
 });
 
-function closeOnEscape(evt) {
-  if(closePopupKeydown(evt)) {
+function onFullPhotoEscKeydown(evt) {
+  if(isEscKeydown(evt)) {
     closeFullPhoto();
   }
 }
