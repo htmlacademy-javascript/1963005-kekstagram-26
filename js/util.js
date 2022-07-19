@@ -17,4 +17,6 @@ getRandomNumber();
 
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
-export { getRandomNumber, getRandomArrayElement };
+const isEscKeydown =  (evt) => evt.key === 'Escape';
+
+export { getRandomNumber, getRandomArrayElement, isEscKeydown };
