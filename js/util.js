@@ -1,9 +1,7 @@
-/* Функция проверки длины строки
+//Функция проверки длины строки
 function checkoutTextLength (text, maxLength) {
   return text.length <= maxLength;
 }
-
-checkoutTextLength(); */
 
 // Генерация рандомного числа из заданного лиапозона
 function getRandomNumber (min, max) {
@@ -13,10 +11,10 @@ function getRandomNumber (min, max) {
   return Math.round(min - 0.5 + Math.random() * (max - min + 1));
 }
 
-getRandomNumber();
-
+//Рандомный выбор элемента массива
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
+//Обработчик событий по нажатию на клавишу Esc
 const isEscKeydown =  (evt) => evt.key === 'Escape';
 
-export { getRandomNumber, getRandomArrayElement, isEscKeydown };
+export { checkoutTextLength, getRandomNumber, getRandomArrayElement, isEscKeydown };
