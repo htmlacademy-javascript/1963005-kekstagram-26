@@ -39,20 +39,19 @@ const addComments = (comments) => {
 };
 
 //
-let startCommentsCount = 0;
+const startCommentsCount = 0;
 let commentsData = [];
 let commentsCount = 0;
 
 const renderMoreComments = () => {
-  const moreComments = commentsData.slice(startCommentsCount, startCommentsCount + UPLOADED_COMMENTS_AMOUNT);
+  const moreComments = commentsData.slice(startCommentsCount, commentsCount + UPLOADED_COMMENTS_AMOUNT);
   addComments(moreComments);
-  startCommentsCount = startCommentsCount + UPLOADED_COMMENTS_AMOUNT;
+  commentsCount += UPLOADED_COMMENTS_AMOUNT;
 
-  if (commentsData.length <= startCommentsCount) {
+  if (commentsData.length <= commentsCount) {
     commentsLoaderButton.classList.add('hidden');
   }
-  commentsCount = startCommentsCount;
-  if (startCommentsCount > commentsData.length) {
+  if (commentsCount > commentsData.length) {
     commentsCount = commentsData.length;
   }
   socialCommentCount.innerHTML = `${commentsCount} из ${commentsData.length} комментариев`;
@@ -72,7 +71,7 @@ const createFullPhoto = ({url, likes, description, comments}) => {
 
   commentsLoaderButton.classList.remove('hidden');
   commentsData = comments;
-  startCommentsCount = 0;
+  commentsCount = 0;
   renderMoreComments();
 };
 
