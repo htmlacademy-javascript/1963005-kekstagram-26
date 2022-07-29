@@ -11,6 +11,7 @@ const photoSizeScaleInput = document.querySelector('.scale__control--value');
 
 const resetPhotoSizeValue = () => {
   photoSizeScaleInput.value = `${SIZE_SCALE_SETTINGS.max}`;
+  uploadedPhoto.style.transform = `scale(${SIZE_SCALE_SETTINGS.max / 100})`;
 };
 
 const changeScaleValue = (increase) => {
